@@ -74,8 +74,6 @@ angular.module('calendar', ['config_calendar'])
                           };
 
       var tab = function(dateDepart, tab) {
-                        console.log(dateDepart);
-                        console.log(tab);
                         var calendar=[];
                         init_tab(calendar);
                         for (date of tab) {
@@ -84,8 +82,11 @@ angular.module('calendar', ['config_calendar'])
                               date.dateFin = new Date(date.dateDebut);
                             var nbDebut = grade(new Date(dateDepart), new Date(date.dateDebut));
                             var nbFin = grade(new Date(dateDepart), new Date(date.dateFin));
-                            if (nbFin < nbDebut || (nbDebut === null || nbFin === null))
-                                  continue;
+                            if (nbFin < nbDebut || (nbDebut === null || nbFin === null)){
+                                    console.log("Event: " + date + " out of range");
+                                    continue;
+                            }
+
                             if (nbDebut < 0)
                                   nbDebut = 0;
                             if (nbFin > 365)
@@ -98,7 +99,6 @@ angular.module('calendar', ['config_calendar'])
                               }
                             }
                           }
-                          console.log(calendar);
                         return calendar;
                       };
 
@@ -108,7 +108,6 @@ angular.module('calendar', ['config_calendar'])
 
       this.weeks = tab(aujd, this.data);
       this.month = fill(aujd);
-      console.log(this.month);;
   }
 
 });
