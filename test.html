@@ -18,10 +18,10 @@ angular.module('application', ['calendar']).controller('test', function ($scope)
     $scope.date = new Date();
 
     $scope.tableau = [];
-    $scope.tableau[0] = {dateDebut : new Date('2016-01-27'), dateFin : new Date('2016-02-26')};
+    $scope.tableau[0] = {dateDebut : '2016-01-27', dateFin : '2016-02-26'};
     $scope.tableau[1] = {dateDebut : new Date('2016-01-04'), dateFin : new Date('2016-07-14')};
-    $scope.tableau[2] = {dateDebut : new Date('2016-09-04'), dateFin : new Date('2016-09-12')};
-    $scope.tableau[3] = {dateDebut : new Date('2016-08-04'), dateFin : new Date('2016-10-14')};
+    $scope.tableau[2] = {dateDebut : new Date('2016-09-04'), dateFin : '2016-09-12'};
+    $scope.tableau[3] = {dateDebut : '2016-08-04', dateFin : new Date('2016-10-14')};
     $scope.tableau[4] = {dateDebut : new Date('2016-09-01'), dateFin : new Date('2016-09-14')};
     $scope.tableau[5] = {dateDebut : new Date('2016-09-02'), dateFin : new Date('2016-09-09')};
     $scope.tableau[6] = {dateDebut : new Date('2015-10-18'), dateFin : null};
@@ -36,11 +36,9 @@ angular.module('application', ['calendar']).controller('test', function ($scope)
 
         <div ng-controller='test'>
           <calendar start = 'date' data='tableau'></calendar>
-
-          <div ng-repeat="n in [42, 42, 43, 43] track by $index">
+          <calendar start = 'date' data='tableau'></calendar>
+          <div ng-repeat="n in [42, 42, 42, 42] track by $index">
             <calendar start = 'date' data='tableau'></calendar>
-            {{date}}
-            {{tableau}}
           </div>
 
 

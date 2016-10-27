@@ -74,6 +74,7 @@ angular.module('calendar', ['config_calendar'])
                           };
 
       var tab = function(dateDepart, tab) {
+                        console.log(dateDepart);
                         console.log(tab);
                         var calendar=[];
                         init_tab(calendar);
@@ -81,8 +82,8 @@ angular.module('calendar', ['config_calendar'])
 
                           if (date.dateFin == null)
                               date.dateFin = new Date(date.dateDebut);
-                            var nbDebut = grade(dateDepart, date.dateDebut);
-                            var nbFin = grade(dateDepart, date.dateFin);
+                            var nbDebut = grade(new Date(dateDepart), new Date(date.dateDebut));
+                            var nbFin = grade(new Date(dateDepart), new Date(date.dateFin));
                             if (nbFin < nbDebut || (nbDebut === null || nbFin === null))
                                   continue;
                             if (nbDebut < 0)
@@ -102,12 +103,12 @@ angular.module('calendar', ['config_calendar'])
                       };
 
 
-      var aujd = this.start;
+      var aujd = new Date(this.start);
       aujd.setYear(aujd.getFullYear()-1);
 
       this.weeks = tab(aujd, this.data);
       this.month = fill(aujd);
-      console.log(this.month);
+      console.log(this.month);;
   }
 
 });
