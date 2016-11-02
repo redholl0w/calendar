@@ -36,7 +36,7 @@ angular.module('calendar', ['config_calendar'])
 
 
 
-    var fill = function (dateDepart) {
+    var fill = function(dateDepart) {
                         var tmp = new Date(dateDepart);
                         tmp.setDate(1);
                         var m = tmp.getMonth();
@@ -59,7 +59,7 @@ angular.module('calendar', ['config_calendar'])
                         return this.month;
                       };
 
-    var init_tab = function (calendar) {
+    var init_tab = function(calendar) {
                             var cmp = 0;
                             for (var i = 0; i < 53; i++) {
                               calendar.push([]);
@@ -82,8 +82,12 @@ angular.module('calendar', ['config_calendar'])
                               date.dateFin = new Date(date.dateDebut);
                             var nbDebut = grade(new Date(dateDepart), new Date(date.dateDebut));
                             var nbFin = grade(new Date(dateDepart), new Date(date.dateFin));
+                            console.log(date.dateDebut);
+                            console.log(nbDebut);
+                            console.log(nbFin);
                             if (nbFin < nbDebut || (nbDebut === null || nbFin === null)){
-                                    console.log("Event: " + date + " out of range");
+                                    console.log("[Warning] Event: " + String(date.dateDebut)
+                                                + " -> " + String(date.dateDebut) + " may induce malicious behavior");
                                     continue;
                             }
 
