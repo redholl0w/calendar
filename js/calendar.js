@@ -85,7 +85,9 @@ angular.module('calendar', ['config_calendar'])
                             console.log(date.dateDebut);
                             console.log(nbDebut);
                             console.log(nbFin);
-                            if (nbFin < nbDebut || (nbDebut === null || nbFin === null)){
+                            if (nbFin < nbDebut || (nbDebut === null || nbFin === null) ||
+                                  (nbDebut < 0 && nbFin < 0) ||  (nbDebut > 365 && nbFin > 365)){
+
                                     console.log("[Warning] Event: " + String(date.dateDebut)
                                                 + " -> " + String(date.dateDebut) + " may induce malicious behavior");
                                     continue;
