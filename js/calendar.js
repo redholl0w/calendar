@@ -4,11 +4,12 @@ angular.module('calendar', ['config_calendar'])
   templateUrl : 'template.html',
   bindings : {
    start : '=',
-   data: '='
+   data: '=',
+   color: '='
  },
   controller: function(config){
       this.nb = 10;
-      var isBissextile = function(a) {
+    var isBissextile = function(a) {
                             if(a%4 == 0)
                               if(a%100 == 0){
                                 if(a%400 == 0)
@@ -20,7 +21,7 @@ angular.module('calendar', ['config_calendar'])
                             return false;
                           };
 
-      var grade = function(dateDepart, dateLock) {
+    var grade = function(dateDepart, dateLock) {
                          var t1 = Math.round(dateLock.getTime()/1000.0);
                          var t2 = Math.round(dateDepart.getTime()/1000.0);
                          if (isNaN(t1) || isNaN(t2))
@@ -33,8 +34,6 @@ angular.module('calendar', ['config_calendar'])
                          }
                          return t3;
                        };
-
-
 
     var fill = function(dateDepart) {
                         var tmp = new Date(dateDepart);
@@ -73,8 +72,8 @@ angular.module('calendar', ['config_calendar'])
                             }
                           };
 
-      var tab = function(dateDepart, tab) {
-                        var calendar=[];
+    var tab = function(dateDepart, tab) {
+                        var calendar = [];
                         init_tab(calendar);
                         for (date of tab) {
 
@@ -82,9 +81,6 @@ angular.module('calendar', ['config_calendar'])
                               date.dateFin = new Date(date.dateDebut);
                             var nbDebut = grade(new Date(dateDepart), new Date(date.dateDebut));
                             var nbFin = grade(new Date(dateDepart), new Date(date.dateFin));
-                            console.log(date.dateDebut);
-                            console.log(nbDebut);
-                            console.log(nbFin);
                             if (nbFin < nbDebut || (nbDebut === null || nbFin === null) ||
                                   (nbDebut < 0 && nbFin < 0) ||  (nbDebut > 365 && nbFin > 365)){
 
@@ -100,20 +96,40 @@ angular.module('calendar', ['config_calendar'])
                             for (var i = nbDebut; i <= nbFin; i++) {
                               var x = Math.trunc(i/7);
                               var y = i-Math.trunc(i/7)*7;
-                              if(x < 53 && x >= 0 && y >= 0 && y < 7){
+                              if(x < 53 && x >= 0 && y >= 0 && y < 7)
                                 calendar[x][y] += 1;
-                              }
                             }
                           }
                         return calendar;
                       };
 
 
-      var aujd = new Date(this.start);
-      aujd.setYear(aujd.getFullYear()-1);
+    var aujd = new Date(this.start);
+    aujd.setYear(aujd.getFullYear()-1);
 
-      this.weeks = tab(aujd, this.data);
-      this.month = fill(aujd);
+    this.weeks = tab(aujd, this.data);
+    this.month = fill(aujd);
+
+    color = typeof this.color === "undefined" ? "" : this.color;
+
+    switch (color.toString().trim()) {
+      case 'red':
+        this.low_color = "rgb(255, 204, 204)";
+        this.medium_color = "rgb(255, 51, 51)";
+        this.hight_color = "rgb(153, 0, 0)";
+        break;
+      case 'blue':
+        this.low_color = "rgb(204, 204, 255)";
+        this.medium_color = "rgb(51, 51, 255)";
+        this.hight_color = "rgb(0, 0, 153)";
+        break;
+      default:
+        this.low_color = "rgb(204, 255, 204)";
+        this.medium_color = "rgb(51, 255, 51)";
+        this.hight_color = "rgb(0, 153, 0)";
+
+    }
+    //console.log(Color(this.color));
   }
 
 });
