@@ -2,11 +2,7 @@
 <html>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="./js/lib/jasmine-2.5.2/jasmine.css">
-<script src='./js/color/color.js'> </script>
-<script>     var Red = new Color({hue: 0, saturation: 1, value: 1});
-    var C1 = Red.shiftHue(45).darkenByRatio(0.5).desaturateByAmount(0.1);
-    document.getElementById('test').style.backgroundColor = C1.toCSS();
-    </script>
+
 <script src="./js/angular.js"></script>
 <script src="./js/angular-mocks.js"></script>
 <script src="./js/lib/jasmine-2.5.2/jasmine.js"></script>
@@ -33,22 +29,18 @@ angular.module('application', ['calendar']).controller('test', function ($scope)
     $scope.tableau[6] = {dateDebut : new Date('2010-10-18'), dateFin : null};
     $scope.tableau[7] = {dateDebut : '2016-02-27', dateFin : '2016-02-26'};
     $scope.tableau[8] = {dateDebut : '1901-02-27', dateFin : '1902-02-26'};
-    //var Green = Color("#00FF00");
-    //$scope.c = Green;
     });
-    //var Color = import('./color').Color;
-
 
 </script>
 
 <body>
 
   <div ng-app='application'>
-      <!--{{month}}-->
 
         <div id='test' ng-controller='test'>
           <calendar start = 'date' data='tableau'></calendar>
-          <calendar start = 'date' data='tableau'></calendar>
+          <calendar start = 'date' data='tableau' color='"blue"'></calendar>
+          
           <div ng-repeat="n in [42, 42, 42, 42] track by $index">
             <calendar start = 'date' data='tableau' color='"red"'></calendar>
           </div>

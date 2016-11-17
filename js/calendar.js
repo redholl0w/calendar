@@ -104,15 +104,16 @@ angular.module('calendar', ['config_calendar'])
                       };
 
 
+
     var aujd = new Date(this.start);
     aujd.setYear(aujd.getFullYear()-1);
 
     this.weeks = tab(aujd, this.data);
     this.month = fill(aujd);
 
-    color = typeof this.color === "undefined" ? "" : this.color;
+    color = typeof this.color === "undefined" ? "" : this.color.toString().trim();
 
-    switch (color.toString().trim()) {
+    switch (color) {
       case 'red':
         this.low_color = "rgb(255, 204, 204)";
         this.medium_color = "rgb(255, 51, 51)";
@@ -129,7 +130,8 @@ angular.module('calendar', ['config_calendar'])
         this.hight_color = "rgb(0, 153, 0)";
 
     }
-    //console.log(Color(this.color));
+
+
   }
 
 });
