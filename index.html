@@ -10,7 +10,7 @@
 <script src="./js/lib/jasmine-2.5.2/boot.js"></script>
 <script src="./js/lib/jasmine-2.5.2/console.js"></script>
 
-
+<script src="./js/color_tools.js"></script>
 <script src="./js/config_calendar.js"></script>
 <script src="./js/calendar.js"></script>
 
@@ -29,6 +29,15 @@ angular.module('application', ['calendar']).controller('test', function ($scope)
     $scope.tableau[6] = {dateDebut : new Date('2010-10-18'), dateFin : null};
     $scope.tableau[7] = {dateDebut : '2016-02-27', dateFin : '2016-02-26'};
     $scope.tableau[8] = {dateDebut : '1901-02-27', dateFin : '1902-02-26'};
+
+    var eclaircissement = "111111"; // constante d'éclaircissement en hexa
+    //var eclaircissement = "222222";
+    //var eclaircissement = "333333";
+
+
+    var ta_couleur = "ff0000";
+    $scope.ta_couleur = (parseInt(ta_couleur,16)+parseInt(eclaircissement,16)).toString(16)
+
     });
 
 </script>
@@ -38,11 +47,14 @@ angular.module('application', ['calendar']).controller('test', function ($scope)
   <div ng-app='application'>
 
         <div id='test' ng-controller='test'>
+          {{ta_couleur}}
           <calendar start = 'date' data='tableau'></calendar>
-          <calendar start = 'date' data='tableau' color='"blue"'></calendar>
-          
+          <calendar start = 'date' data='tableau' color='"#00FF00"'></calendar>
+          <calendar start = 'date' data='tableau' color='"#0000FF"'></calendar>
+          <calendar start = 'date' data='tableau' color='"#FF0000"'></calendar>
+
           <div ng-repeat="n in [42, 42, 42, 42] track by $index">
-            <calendar start = 'date' data='tableau' color='"red"'></calendar>
+            <calendar start = 'date' data='tableau' color='"800080"'></calendar>
           </div>
 
 

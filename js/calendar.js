@@ -1,4 +1,5 @@
 
+//angular.module('calendar', ['config_calendar', 'color_tools'])
 angular.module('calendar', ['config_calendar'])
 .component('calendar', {
   templateUrl : 'template.html',
@@ -94,8 +95,8 @@ angular.module('calendar', ['config_calendar'])
                             if (nbFin > 365)
                                   nbFin = 365;
                             for (var i = nbDebut; i <= nbFin; i++) {
-                              var x = Math.trunc(i/7);
-                              var y = i-Math.trunc(i/7)*7;
+                              var x = Math.trunc(i / 7);
+                              var y = i-Math.trunc(i / 7) * 7;
                               if(x < 53 && x >= 0 && y >= 0 && y < 7)
                                 calendar[x][y] += 1;
                             }
@@ -105,15 +106,77 @@ angular.module('calendar', ['config_calendar'])
 
 
 
+                      function hslToRgb(h, s, l){
+                          var r, g, b;
+
+                          if(s == 0){
+                              r = g = b = l; // achromatic
+                          }else{
+                              var hue2rgb = function hue2rgb(p, q, t){
+                                  if(t < 0) t += 1;
+                                  if(t > 1) t -= 1;
+                                  if(t < 1/6) return p + (q - p) * 6 * t;
+                                  if(t < 1/2) return q;
+                                  if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                                  return p;
+                              }
+
+                              var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                              var p = 2 * l - q;
+                              r = hue2rgb(p, q, h + 1/3);
+                              g = hue2rgb(p, q, h);
+                              b = hue2rgb(p, q, h - 1/3);
+                          }
+
+                          return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+                      }
+
+
+                      function rgbToHsl(r, g, b){
+                        r /= 255, g /= 255, b /= 255;
+                        var max = Math.max(r, g, b), min = Math.min(r, g, b);
+                        var h, s, l = (max + min) / 2.0;
+
+                        if(max == min){
+                            h = s = 0; // achromatic
+                        }else{
+                            var d = max - min;
+                            s = l > 0.5 ? d / (2.0 - max - min) : d / (max + min);
+                            switch(max){
+                                case r: h = (g - b) / d + (g < b ? 6.0 : 0); break;
+                                case g: h = (b - r) / d + 2.0; break;
+                                case b: h = (r - g) / d + 4.0; break;
+                            }
+                            h /= 6.0;
+                        }
+
+                        return [h, s, l];
+                      }
+
+                      function hexToRgb(hex) {
+                          // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+                          var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+                          hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+                              return r + r + g + g + b + b;
+                          });
+
+                          var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                          return result ? {
+                              r: parseInt(result[1], 16),
+                              g: parseInt(result[2], 16),
+                              b: parseInt(result[3], 16)
+                          } : null;
+                      }
+
     var aujd = new Date(this.start);
-    aujd.setYear(aujd.getFullYear()-1);
+    aujd.setYear(aujd.getFullYear() - 1);
 
     this.weeks = tab(aujd, this.data);
     this.month = fill(aujd);
 
-    color = typeof this.color === "undefined" ? "" : this.color.toString().trim();
+    color = typeof this.color === "undefined" ? "008000" : this.color.toString().trim().replace("#", "");
 
-    switch (color) {
+    /*switch (color) {
       case 'red':
         this.low_color = "rgb(255, 204, 204)";
         this.medium_color = "rgb(255, 51, 51)";
@@ -129,8 +192,18 @@ angular.module('calendar', ['config_calendar'])
         this.medium_color = "rgb(51, 255, 51)";
         this.hight_color = "rgb(0, 153, 0)";
 
-    }
-
+    }*/
+    var c = hexToRgb(color);
+    c = rgbToHsl(c['r'], c['g'], c['b'])
+    console.log(c);
+    console.log();
+    final_color = hslToRgb(c[0], c[1], c[2]+0.35);
+    this.low_color = "rgb("+ final_color[0] +", " + final_color[1] + ", "+ final_color[2]+")";
+    //this.low_color = "#" + (parseInt(color,16)+parseInt("777777",16)).toString(16);
+    final_color = hslToRgb(c[0], c[1], c[2]+0.20);
+    this.medium_color = "rgb("+ final_color[0] +", " + final_color[1] + ", "+ final_color[2]+")";
+    //this.medium_color = "#" + (parseInt(color,16)+parseInt("444444",16)).toString(16);
+    this.hight_color = "#" + color;
 
   }
 
