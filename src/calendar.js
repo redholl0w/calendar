@@ -1,8 +1,6 @@
-
-//angular.module('calendar', ['config_calendar', 'color_tools'])
 angular.module('calendar', ['config_calendar'])
 .component('calendar', {
-  templateUrl : 'template.html',
+  templateUrl : 'js/template.html',
   bindings : {
    start : '=',
    data: '=',
@@ -176,33 +174,15 @@ angular.module('calendar', ['config_calendar'])
 
     color = typeof this.color === "undefined" ? "008000" : this.color.toString().trim().replace("#", "");
 
-    /*switch (color) {
-      case 'red':
-        this.low_color = "rgb(255, 204, 204)";
-        this.medium_color = "rgb(255, 51, 51)";
-        this.hight_color = "rgb(153, 0, 0)";
-        break;
-      case 'blue':
-        this.low_color = "rgb(204, 204, 255)";
-        this.medium_color = "rgb(51, 51, 255)";
-        this.hight_color = "rgb(0, 0, 153)";
-        break;
-      default:
-        this.low_color = "rgb(204, 255, 204)";
-        this.medium_color = "rgb(51, 255, 51)";
-        this.hight_color = "rgb(0, 153, 0)";
-
-    }*/
     var c = hexToRgb(color);
     c = rgbToHsl(c['r'], c['g'], c['b'])
-    console.log(c);
-    console.log();
+
     final_color = hslToRgb(c[0], c[1], c[2]+0.35);
     this.low_color = "rgb("+ final_color[0] +", " + final_color[1] + ", "+ final_color[2]+")";
-    //this.low_color = "#" + (parseInt(color,16)+parseInt("777777",16)).toString(16);
+
     final_color = hslToRgb(c[0], c[1], c[2]+0.20);
     this.medium_color = "rgb("+ final_color[0] +", " + final_color[1] + ", "+ final_color[2]+")";
-    //this.medium_color = "#" + (parseInt(color,16)+parseInt("444444",16)).toString(16);
+
     this.hight_color = "#" + color;
 
   }
