@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="./js/lib/jasmine-2.5.2/jasmine.css">
 
-<script src="./js/angular.js"></script>
-<script src="./js/angular-mocks.js"></script>
-<script src="./js/lib/jasmine-2.5.2/jasmine.js"></script>
-<script src="./js/lib/jasmine-2.5.2/jasmine-html.js"></script>
-<script src="./js/lib/jasmine-2.5.2/boot.js"></script>
-<script src="./js/lib/jasmine-2.5.2/console.js"></script>
-
-<script src="./js/color_tools.js"></script>
-<script src="./js/config_calendar.js"></script>
-<script src="./js/calendar.js"></script>
+<script src="./../bower_components/angular/angular.js"></script>
+<script src="../src/config_calendar.js"></script>
+<script src="../src/calendar.js"></script>
 
 
 <script>
-angular.module('application', ['calendar']).controller('test', function ($scope) {
-    $scope.date = new Date();
+angular.module('application', ['calendar']).controller('example', function ($scope) {
+    $scope.date = new Date('2016-11-01');
 
     $scope.tableau = [];
     $scope.tableau[0] = {dateDebut : '2016-01-27', dateFin : '2016-02-26'};
@@ -26,9 +18,9 @@ angular.module('application', ['calendar']).controller('test', function ($scope)
     $scope.tableau[3] = {dateDebut : '2016-08-04', dateFin : new Date('2016-10-14')};
     $scope.tableau[4] = {dateDebut : new Date('2016-09-01'), dateFin : new Date('2016-09-14')};
     $scope.tableau[5] = {dateDebut : new Date('2016-09-02'), dateFin : new Date('2016-09-09')};
-    $scope.tableau[6] = {dateDebut : new Date('2010-10-18'), dateFin : null};
+    $scope.tableau[6] = {dateDebut : new Date('2010-10-18'), dateFin : null}; // Single Day event
     $scope.tableau[7] = {dateDebut : '2016-02-27', dateFin : '2016-02-26'};
-    $scope.tableau[8] = {dateDebut : '1901-02-27', dateFin : '1902-02-26'};
+    $scope.tableau[8] = {dateDebut : '1901-02-27', dateFin : '1902-02-26'}; // Look log message for out of bound event
 
   });
 
@@ -38,9 +30,9 @@ angular.module('application', ['calendar']).controller('test', function ($scope)
 
   <div ng-app='application'>
 
-        <div id='test' ng-controller='test'>
+        <div id='test' ng-controller='example'>
 
-          <calendar start = 'date' data='tableau'>On ne verra jamais ça</calendar>
+          <calendar start = 'date' data='tableau'>You will never see that</calendar>
           <calendar start = 'date' data='tableau' color='"#00FF00"'></calendar>
           <calendar start = 'date' data='tableau' color='"#0000FF"'></calendar>
           <calendar start = 'date' data='tableau' color='"#FF0000"'></calendar>
