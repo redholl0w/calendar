@@ -34,3 +34,5 @@ config_calendar.run(function($templateCache) {
 
   '</div>');
 });
+
+module.exports = config_calendar;

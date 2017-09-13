@@ -1,4 +1,4 @@
-angular.module('calendar', ['config_calendar'])
+var calendar = angular.module('calendar', ['config_calendar'])
 .component('calendar', {
   templateUrl : 'template_calendar.html',
   bindings : {
@@ -75,6 +75,8 @@ ctrl.grade = function(dateDepart, dateLock) {
     ctrl.tab = function(dateDepart, tab) {
                         var calendar = [];
                         this.init_tab(calendar);
+                        if(tab === "undefined")
+                            return calendar;
                         for (date of tab) {
 
                           if (date.dateFin == null)
@@ -189,3 +191,5 @@ ctrl.grade = function(dateDepart, dateLock) {
   }
 
 });
+
+module.exports = calendar;

@@ -1,0 +1,32 @@
+{
+  "name": "calendar",
+  "version": "0.0.1",
+  "description": "A github's tracking calendar like.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redholl0w/calendar.git"
+  },
+  "keywords": [
+    "Calendar"
+  ],
+  "author": "redHoll0w",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/redholl0w/calendar/issues"
+  },
+  "homepage": "https://github.com/redholl0w/calendar#readme",
+  "dependencies": {
+    "angular": "1.5.0",
+    "webpack": "3.5.6"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.5.0",
+    "karma": "~1.7.1",
+    "karma-jasmine": "^1.1.0"
+  }
+}
